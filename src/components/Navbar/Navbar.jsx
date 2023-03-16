@@ -23,7 +23,7 @@ export default function NavBar() {
                 as="li"
                 variant="small"
                 color="blue-gray"
-                className="p-1 font-normal"
+                className="p-1 font-normal class"
             >
                 <NavLink to={'/'}>Home</NavLink>
             </Typography>
