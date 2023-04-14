@@ -1,17 +1,15 @@
 import { Button, Card, Input, Radio, Textarea, Typography } from "@material-tailwind/react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import './Form.css'
-const Form = () => {
-    const [data, setData] = useState([])
-    const [id, setId] = useState(0)
-
-    const handleDeleteRow = (id) => {
-        const updatedData = data.filter((row) => row.id !== id);
-        setData(updatedData);
-    };
+const Form = ({ setData, data, selectedRowData }) => {
+    const [id, setId] = useState(1)
+ 
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+         
+
         setId(id + 1)
         handleReset()
         const userDetails = {
@@ -24,12 +22,10 @@ const Form = () => {
         setData([...data, userDetails])
     }
 
-
     const [name, setName] = useState("")
     const [age, setAge] = useState("")
     const [gender, setGender] = useState("")
     const [address, setAddress] = useState("")
-
 
     const selectRadio = (e) => {
         setGender(e.target.value)
@@ -63,8 +59,8 @@ const Form = () => {
                             <div>
                                 <span>Gender:</span>
                                 <div className="flex gap-10">
-                                    <Radio required={true} checked={gender === 'Male'} id="html" name="type" label="Male" value={'Male'} onChange={selectRadio} />
-                                    <Radio required={true} checked={gender === 'Female'} id="react" name="type" label="Female" value={'Female'} onChange={selectRadio} />
+                                    <Radio required={true} checked={gender === 'Male'} id="male" name="type" label="Male" value={'Male'} onChange={selectRadio} />
+                                    <Radio required={true} checked={gender === 'Female'} id="female" name="type" label="Female" value={'Female'} onChange={selectRadio} />
                                 </div>
                             </div>
                             <div className="w-96">
@@ -82,39 +78,6 @@ const Form = () => {
                         </form>
                     </Card >
                 </div>
-                {
-                    data.length !== 0 && (
-                        <div className="p-2 table " >
-                            <div className='flex items-center'>
-                                <table className="table-auto" border={"1px solid"}>
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Name</th>
-                                            <th>Age</th>
-                                            <th>Gender</th>
-                                            <th>Address</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {data.map((row) => (
-                                            <tr key={row.id}>
-                                                <td>{row.id}</td>
-                                                <td>{row.name}</td>
-                                                <td>{row.age}</td>
-                                                <td>{row.gender}</td>
-                                                <td>{row.address}</td>
-                                                <td>
-                                                    <button onClick={() => handleDeleteRow(row.id)}>Delete</button>
-                                                </td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    )
-                }
             </div>
 
         </>
